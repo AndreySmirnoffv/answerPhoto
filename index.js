@@ -7,6 +7,11 @@ const { createFile, deleteFile, addPhotoToDatabase, sendRandomPhotoFromJson } = 
 
 
 bot.on('message', async msg => {
+    if (msg.text && msg.text.trim() !== '') {
+        if (msg.chat.type === 'group') {
+            await sendRandomPhotoFromJson(bot, msg);
+        }
+    }
     let user = admins.filter(user => user.username === msg.from.username)
     if (msg.text === '/start' && user){
         await bot.sendMessage(msg.chat.id, "Привет админ вот что ты можешь сделать", adminKeyboard)
