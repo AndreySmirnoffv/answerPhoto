@@ -15,7 +15,7 @@ async function createFile(bot, msg) {
             };
 
             const formattedFileName = word.replace(/\s+(\w)(\w*)/g, function(_, first, rest) {
-                return first.toUpperCase() + rest.toLowerCase();
+                return first.toLowerCase() + rest.toLowerCase();
             }) + ".json";
 
             fs.writeFile('./assets/db/photos/' + formattedFileName, JSON.stringify(photoInfo, null, '\t'), async (err) => {
@@ -40,7 +40,7 @@ async function addPhotoToDatabase(bot, msg) {
             try {
                 const word = wordMsg.text.toLowerCase().trim(); // Приводим слово к нижнему регистру и удаляем лишние пробелы
                 const fileName = word.replace(/\s+(\w)(\w*)/g, function(_, first, rest) {
-                    return first.toUpperCase() + rest.toLowerCase();
+                    return first.toLowerCase() + rest.toLowerCase();
                 }) + ".json";
 
                 // Проверяем существование файла
@@ -83,7 +83,7 @@ async function addPhotoToDatabase(bot, msg) {
                     });
                 } else {
                     // Если файл не найден, отправляем сообщение об ошибке
-                    await bot.sendMessage(msg.chat.id, `Файл для слова "${word}" не найден. Пожалуйста, сначала добавьте это слово в базу данных.`);
+                    await bot.sendMessage(msg.message.chat.id, `Файл для слова "${word}" не найден. Пожалуйста, сначала добавьте это слово в базу данных.`);
                 }
             } catch (error) {
                 console.error('Ошибка в обработчике текстового сообщения:', error);
